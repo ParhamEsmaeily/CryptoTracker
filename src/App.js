@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './pages/Home';
-import Top100 from './pages/Top100';
+import Top300 from './pages/Top300';
 function App() {
   return (
     <Router>
@@ -11,7 +11,7 @@ function App() {
         <main className="py-8">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/top100" element={<Top100 />} />
+            <Route path="/top300" element={<Top300 />} />
           </Routes>
         </main>
       </div>
