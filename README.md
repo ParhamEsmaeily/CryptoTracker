@@ -6,7 +6,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Crypto Tracker is a React-based application that provides users with up-to-date information on cryptocurrencies. The application fetches data from the CoinGecko API and displays it in various formats, including a list of the top 100 cryptocurrencies and featured cryptocurrencies. (V1)
 
 V2 - List of top 300 crypto currencies with pages to flip through
-V2.2 Add Favorite section to track favorites in Home page
+
+V2.2 Add Favorite section to track favorites in Home page + hover animation on home crypto - LIVE NOW
+
 V3 Account creation with google auth and save preferences.
 
 

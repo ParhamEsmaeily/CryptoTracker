@@ -1,40 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import CryptoCard from '../components/CryptoCards';
-
-const Home = () => {
-  const [cryptos, setCryptos] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get('https://api.coingecko.com/api/v3/coins/markets', {
-        params: {
-          vs_currency: 'usd',
-          ids: 'bitcoin,ethereum,nano',
-          order: 'market_cap_desc',
-          per_page: 3,
-          page: 1,
-          sparkline: false,
-        },
-      });
-      setCryptos(response.data);
-    };
-
-    fetchData();
-  }, []);
-
+import { PlusIcon } from '@heroicons/react/solid';
+const Home = ({ favorites }) => {
+  const defaultCryptos = ['bitcoin', 'ethereum', 'nano'];
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Featured Cryptocurrencies</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {cryptos.map((crypto) => (
-          <CryptoCard
-            key={crypto.id}
-            name={crypto.name}
-            symbol={crypto.symbol}
-            price={crypto.current_price}
-            image={crypto.image}
-          />
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
+        {defaultCryptos.map((id) => (
+          <CryptoCard key={id} id={id} />
+        ))}
+        {[0, 1].map((index) => (
+          favorites[index] ? (
+            <CryptoCard 
+              key={favorites[index].id} 
+              name={favorites[index].name}
+              symbol={favorites[index].symbol}
+              price={favorites[index].current_price}
+              image={favorites[index].image}
+            />
+          ) : (
+            <div key={`empty-${index}`} className="bg-white rounded-lg shadow-md p-4 flex items-center justify-center">
+              <PlusIcon className="h-12 w-12 text-gray-400" />
+            </div>
+          )
         ))}
       </div>
     </div>

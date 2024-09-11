@@ -1,11 +1,13 @@
 import React from 'react';
+import { StarIcon } from '@heroicons/react/solid';
 
-const CryptoTable = ({ cryptos }) => {
+const CryptoTable = ({ cryptos, favorites, onToggleFavorite }) => {
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full bg-white">
         <thead>
           <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+            <th className="py-3 px-6 text-left">Favorite</th>
             <th className="py-3 px-6 text-left">Rank</th>
             <th className="py-3 px-6 text-left">Name</th>
             <th className="py-3 px-6 text-left">Symbol</th>
@@ -17,6 +19,20 @@ const CryptoTable = ({ cryptos }) => {
         <tbody className="text-gray-600 text-sm font-light">
           {cryptos.map((crypto) => (
             <tr key={crypto.id} className="border-b border-gray-200 hover:bg-gray-100">
+              <td className="py-3 px-6 text-left">
+                <button 
+                  onClick={() => onToggleFavorite(crypto)}
+                  disabled={['bitcoin', 'ethereum', 'nano'].includes(crypto.id)}
+                >
+                  <StarIcon 
+                    className={`h-5 w-5 ${
+                      favorites.some(fav => fav.id === crypto.id) 
+                        ? 'text-yellow-500' 
+                        : 'text-gray-400'
+                    }`} 
+                  />
+                </button>
+              </td>
               <td className="py-3 px-6 text-left whitespace-nowrap">{crypto.market_cap_rank}</td>
               <td className="py-3 px-6 text-left">
                 <div className="flex items-center">

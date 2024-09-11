@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CryptoTable from '../components/CryptoTable';
 
-const Top300 = () => {
+const Top300 = ({ favorites, setFavorites }) => {
   const [cryptos, setCryptos] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -33,11 +33,23 @@ const Top300 = () => {
     };
 
     fetchData();
-  }, [currentPage]); // Now this effect runs when currentPage changes
+  }, [currentPage]);
+
+  //handle toggle favorites and not letting user to toggle the three main chosen by dev "bitcoin, Ethereum and Nano"
+  const handleToggleFavorite = (crypto) => {
+    setFavorites(prevFavorites => {
+      if (prevFavorites.some(fav => fav.id === crypto.id)) {
+        return prevFavorites.filter(fav => fav.id !== crypto.id);
+      } else if (prevFavorites.length < 2 && !['bitcoin', 'ethereum', 'nano'].includes(crypto.id)) {
+        return [...prevFavorites, crypto];
+      }
+      return prevFavorites;
+    });
+  };
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
-    window.scrollTo(0, 0); // Scroll to top when changing pages
+    window.scrollTo(0, 0);
   };
 
   if (loading) return <div className="text-center mt-8">Loading...</div>;
@@ -46,7 +58,11 @@ const Top300 = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Top 300 Cryptocurrencies</h1>
-      <CryptoTable cryptos={cryptos} />
+      <CryptoTable 
+        cryptos={cryptos} 
+        favorites={favorites} 
+        onToggleFavorite={handleToggleFavorite} 
+      />
       <div className="flex justify-center mt-8">
         {[1, 2, 3].map((number) => (
           <button
