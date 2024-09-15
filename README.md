@@ -11,9 +11,8 @@ V2.2 Add Favorite section to track favorites in Home page + hover animation on h
 
 V3 Account creation with google auth and save preferences.
 
-
-<img src="https://github.com/user-attachments/assets/654ef2a9-0760-4802-abaf-f7242bac647b" width="2000" />
-<img src="https://github.com/user-attachments/assets/9141aa23-5ae1-4558-8afa-d2d1374c0e58" width="1500" />
+<img src="https://github.com/user-attachments/assets/ac46c614-5f57-412a-a611-bda036f965ac" width="2000" />
+<img src="https://github.com/user-attachments/assets/903a0443-f0a2-403f-8ceb-1350daa352fa" width="1500" />
 
 
 
