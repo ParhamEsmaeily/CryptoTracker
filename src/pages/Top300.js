@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CryptoTable from '../components/CryptoTable';
 
-const Top300 = ({ favorites, setFavorites }) => {
+const Top300 = ({ favorites, setFavorites, usdToCadRate }) => {
   const [cryptos, setCryptos] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -23,7 +23,11 @@ const Top300 = ({ favorites, setFavorites }) => {
             sparkline: false,
           },
         });
-        setCryptos(response.data);
+        const cryptosWithCadPrice = response.data.map(crypto => ({
+          ...crypto,
+          cad_price: usdToCadRate ? crypto.current_price * usdToCadRate : null
+        }));
+        setCryptos(cryptosWithCadPrice);
       } catch (err) {
         setError('Failed to fetch data. Please try again later. Wait aproximate 1 minute to refresh. This is due to API FETCH LIMITATIONS');
         console.error('Error fetching data:', err);
@@ -32,8 +36,10 @@ const Top300 = ({ favorites, setFavorites }) => {
       }
     };
 
-    fetchData();
-  }, [currentPage]);
+    if (usdToCadRate) {
+      fetchData();
+    }
+  }, [currentPage, usdToCadRate]);
 
   //handle toggle favorites and not letting user to toggle the three main chosen by dev "bitcoin, Ethereum and Nano"
   const handleToggleFavorite = (crypto) => {

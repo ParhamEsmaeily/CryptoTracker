@@ -7,7 +7,9 @@ Crypto Tracker is a React-based application that provides users with up-to-date 
 
 V2 - List of top 300 crypto currencies with pages to flip through
 
-V2.2 Add Favorite section to track favorites in Home page + hover animation on home crypto - LIVE NOW
+V2.2 Add Favorite section to track favorites in Home page + hover animation on home crypto.
+
+V2.3 Added Canadian prices.
 
 V3 Account creation with google auth and save preferences.
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { PlusIcon } from '@heroicons/react/solid'; // Make sure to import PlusIcon
 
 const CryptoCard = ({ id, name, symbol, price, image }) => {
   const [cryptoData, setCryptoData] = useState(null);
@@ -48,4 +49,28 @@ const CryptoCard = ({ id, name, symbol, price, image }) => {
   );
 };
 
+const FavoritesSection = ({ favorites }) => {
+  return (
+    <div>
+      {[0, 1].map((index) => (
+        favorites[index] ? (
+          <CryptoCard 
+            key={favorites[index].id} 
+            id={favorites[index].id}
+            name={favorites[index].name}
+            symbol={favorites[index].symbol}
+            price={favorites[index].current_price}
+            image={favorites[index].image}
+          />
+        ) : (
+          <div key={`empty-${index}`} className="bg-white rounded-lg shadow-md p-4 flex items-center justify-center">
+            <PlusIcon className="h-12 w-12 text-gray-400" />
+          </div>
+        )
+      ))}
+    </div>
+  );
+};
+
 export default CryptoCard;
+export { FavoritesSection };
